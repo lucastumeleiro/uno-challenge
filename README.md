@@ -1,140 +1,94 @@
-# Teste Técnico
+# UnoCRM - Desafio Técnico
 
-## 🎯 Desafio: Mini CRM de Leads
+Mini CRM de Leads desenvolvido como desafio técnico, com foco em gerenciamento de leads e contatos.
 
-Você deve construir uma aplicação fullstack para gerenciamento de **leads** e seus **contatos**, composta por uma **API REST** e uma **interface web**.
+## 🎨 Protótipo das Telas
 
-**Prazo de entrega: 3 dias**
+As telas foram prototipadas no Figma para definir a interface antes do desenvolvimento.
+
+**Link do Figma:** [UnoCRM - Protótipo](https://www.figma.com/design/uPEFcKcqjMunpsAMBFtlJ4/UnoCRM?node-id=0-1&t=9SiNeDTthvn4LCdg-1)
+
+> **Organização do Figma:**
+> - **Wireframes**: Contém as telas do sistema
+> - **StyleGuide**: Contém o design system do projeto
+
+> **Nota:** As telas obrigatórias do desafio são apenas **Contatos** e **Leads** e seus cadastros. As telas **Home** e **Dashboard** foram criadas adicionalmente como um desafio pessoal.
+
+### Telas do Sistema
+
+#### Home
+
+Tela inicial do sistema (tela adicional).
+
+![Home](Assets/Home.png)
 
 ---
-
-## 📋 Requisitos Obrigatórios
-
-### API (Hono + TypeScript)
 
 #### Contatos
 
-- [ ] **GET /contacts** - Listar contatos
-  - Query param `search`: filtra por nome ou email (case insensitive)
-- [ ] **POST /contacts** - Criar novo contato
-  - Validação de dados com Zod
-  - Retornar erro 400 se dados inválidos
-- [ ] **PUT /contacts/:id** - Atualizar contato existente
-  - Validação de dados com Zod
-  - Retornar erro 400 se dados inválidos
+Listagem de contatos cadastrados no sistema.
+
+![Contatos](Assets/Contatos.png)
+
+---
+
+#### Cadastro de Contatos
+
+Formulário para criação e edição de contatos.
+
+![Cadastro de Contatos](Assets/Contatos_cadastro.png)
+
+---
 
 #### Leads
 
-- [ ] **GET /leads** - Listar leads
-  - Query param `search`: filtra por nome ou empresa (case insensitive)
-  - Query param `status`: filtra por status (`novo`, `contactado`, `qualificado`, `convertido`, `perdido`)
-- [ ] **POST /leads** - Criar novo lead (vinculado a um contato via `contactId`)
-  - Validação de dados com Zod
-  - Retornar erro 400 se dados inválidos
-- [ ] **PUT /leads/:id** - Atualizar lead existente
-  - Validação de dados com Zod
-  - Retornar erro 400 se dados inválidos
-- [ ] **GET /contacts/:contactId/leads** - Listar leads de um contato específico
+Listagem de leads com filtros por status e busca.
 
-### Frontend (React + TypeScript)
-
-- [ ] Listagem de leads em tabela
-- [ ] Campo de busca por nome/empresa
-- [ ] Filtro por status (dropdown, tabs ou botões)
-- [ ] Formulário para criar novo lead (selecionando um contato existente)
-- [ ] Listagem de contatos
-- [ ] Formulário para criar novo contato
-- [ ] Visualização dos leads vinculados a um contato
-- [ ] Feedback visual de loading e erro
+![Leads](Assets/Leads.png)
 
 ---
 
-## 📦 Modelo de Dados
+#### Cadastro de Leads
 
-```typescript
-interface Contact {
-  id: string
-  name: string
-  email: string
-  phone: string
-  createdAt: string // ISO date
-}
+Formulário para criação e edição de leads.
 
-interface Lead {
-  id: string
-  contactId: string // referência ao contato (Contact.id)
-  name: string
-  company: string
-  status: 'novo' | 'contactado' | 'qualificado' | 'convertido' | 'perdido'
-  createdAt: string // ISO date
-}
-```
-
-### Relacionamento
-
-- Um **Contact** pode ter N **Leads** (1:N)
-- Todo **Lead** pertence a um **Contact** (via `contactId`)
-
-### Validações para criação de Contato:
-
-- `name`: obrigatório, mínimo 2 caracteres
-- `email`: obrigatório, formato de email válido
-- `phone`: obrigatório
-
-### Validações para criação de Lead:
-
-- `contactId`: obrigatório, deve referenciar um contato existente
-- `name`: obrigatório, mínimo 2 caracteres
-- `company`: obrigatório, mínimo 2 caracteres
-- `status`: obrigatório, deve ser um dos valores permitidos
+![Cadastro de Leads](Assets/Leads_cadastro.png)
 
 ---
 
-## ⭐ Diferenciais (não obrigatórios)
+#### Dashboard
 
-- Paginação na listagem de leads
-- Edição de lead existente
-- Edição de contato existente
-- Remoção de lead (com confirmação)
-- Remoção de contato (com confirmação)
-- Ordenação por nome ou data
-- Testes unitários
-- Responsividade
+Painel com métricas e indicadores do sistema (tela adicional).
+
+![Dashboard](Assets/Dashboard.png)
 
 ---
 
-## 🛠️ Stack
+## 📋 Sobre o Desafio
 
-- **API**: Hono, TypeScript, Zod
-- **Frontend**: React, TypeScript
-- **Estilização**: Livre (CSS, Tailwind, styled-components, etc.)
-- **Persistência**: Em memória (array) - não precisa de banco de dados
+Este projeto é parte de um teste técnico para desenvolvimento de uma aplicação fullstack de gerenciamento de leads e contatos.
+
+Para mais detalhes sobre os requisitos do desafio, consulte o arquivo [README_TESTE_TECNICO.md](README_TESTE_TECNICO.md).
+
+## 🛠️ Stack Tecnológica
+
+- **Backend:** Hono + TypeScript + Zod
+- **Frontend:** React + TypeScript
+- **Persistência:** Em memória (arrays)
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📦 Estrutura do Projeto
 
 ```
-crm/
-├── api/          # Backend Hono
-├── web/          # Frontend React
-└── README.md     # Este arquivo
+uno-challenge/
+├── api/                    # Backend Hono
+├── web/                    # Frontend React
+├── Assets/                 # Imagens do protótipo
+├── README.md              # Este arquivo
+└── README_TESTE_TECNICO.md # Requisitos do desafio
 ```
 
 ---
 
-## 📤 Entrega
-
-1. Suba o código em um repositório Git (GitHub, GitLab, etc.)
-2. Inclua um README com instruções para rodar o projeto
-3. Envie o link do repositório
-
----
-
-## ❓ Dúvidas
-
-Se tiver qualquer dúvida sobre os requisitos, entre em contato pelo whatsapp: **(47) 93300-8369**
-
-Boa sorte! 🚀
-
----
+**Desenvolvido para o desafio técnico UNO** 🚀
