@@ -1,26 +1,25 @@
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
-import { cors } from 'hono/cors'
+import { serve } from "@hono/node-server";
+import { createServer } from "@infrastructure/api/server";
+import { InMemoryContactRepository } from "@infrastructure/repositories/InMemoryContactRepository";
+import { seedContacts } from "@infrastructure/seeds/seed";
 
-const app = new Hono()
+async function bootstrap() {
+  const contactRepository = new InMemoryContactRepository();
 
-// Enable CORS for frontend
-app.use('/*', cors())
+  await seedContacts(contactRepository);
 
-app.get('/teste', (c) => {
-  return c.json({
-    message: 'uno-challenge',
-    timestamp: new Date().toISOString(),
-    status: 'success'
-  })
-})
+  const app = createServer(contactRepository);
 
-const port = 3000
-console.log(`Server is running on http://localhost:${port}`)
+  const port = 3000;
 
-serve({
-  fetch: app.fetch,
-  port
-})
+  console.log(`🚀 Server running on http://localhost:${port}`);
+  console.log(`📋 Health check: http://localhost:${port}/health`);
+  console.log(`📞 Contacts API: http://localhost:${port}/contacts`);
 
-export default app
+  serve({
+    fetch: app.fetch,
+    port,
+  });
+}
+
+bootstrap();
