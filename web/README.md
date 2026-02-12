@@ -6,6 +6,8 @@ Interface web desenvolvida com **React** + **TypeScript** + **TailwindCSS** para
 
 O frontend do UnoCRM foi desenvolvido seguindo o protótipo criado no Figma, com foco em proporcionar uma experiência de usuário intuitiva e moderna para o gerenciamento de leads e contatos.
 
+A interface foi inspirada no design observado no site oficial [**UnoCRM**](https://www.unocrm.com.br/), especialmente nas imagens de funcionalidades e no vídeo de demonstração do produto. Para manter consistência visual com a identidade da marca, utilizei a mesma paleta de cores e tipografia presentes no site acima citado.
+
 **Link do Figma:** [UnoCRM - Protótipo](https://www.figma.com/design/uPEFcKcqjMunpsAMBFtlJ4/UnoCRM?node-id=0-1&t=9SiNeDTthvn4LCdg-1)
 
 > **Organização do Figma:**
