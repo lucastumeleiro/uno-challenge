@@ -23,9 +23,14 @@
       "@Layout/*": ["src/Layout/*"],
       "@Components/*": ["src/Components/*"],
       "@Lib/*": ["src/Lib/*"],
-      "@assets/*": ["src/assets/*"]
+      "@Hooks/*": ["src/Hooks/*"],
+      "@assets/*": ["src/assets/*"],
+      "@uno/api/*": ["../api/src/*"]
     }
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    { "path": "./tsconfig.node.json" },
+    { "path": "../api/tsconfig.json" }
+  ]
 }
