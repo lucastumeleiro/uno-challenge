@@ -4,11 +4,13 @@
   --color-primary: #81d3b7;
   --color-primary-dark: #1a2a25;
   --color-primary-light: #e6f6f1;
-  --color-primary-lighter: #f9fdfb;
+  --color-primary-lighter: #ebf6f1;
 
   --color-neutral-dark: #333333;
   --color-neutral-medium: #666666;
   --color-neutral-light: #cccccc;
+
+  --shadow-sidebar: 4px 0 12px -4px rgb(0 0 0 / 0.05), 2px 0 6px -2px rgb(0 0 0 / 0.03);
 
   --color-status-new-bg: #dbeafe;
   --color-status-new-text: #1e40af;

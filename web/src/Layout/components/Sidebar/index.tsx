@@ -1,14 +1,21 @@
-import { Link } from "react-router-dom";
+import { SidebarLogo } from "./components/SidebarLogo";
+import { SidebarContainer } from "./components/SidebarContainer";
+import { SIDEBAR_ITEMS } from "./Utils/constantes";
+import { SidebarItem } from "./components/SidebarItem";
 
 function Sidebar() {
   return (
-    <aside className="">
-      <nav className="flex flex-col">
-        <Link to="/home">Home</Link>
-        <Link to="/contacts">Contatos</Link>
-        <Link to="/leads">Leads</Link>
-        <Link to="/dashboard">Dashboard</Link>
-      </nav>
+    <aside
+      aria-label="Navegação principal"
+      className="flex h-full w-32 flex-col items-center bg-white py-8 rounded-r-3xl border-r border-gray-200 z-10 shadow-sidebar"
+    >
+      <SidebarLogo />
+
+      <SidebarContainer>
+        {SIDEBAR_ITEMS.map((item) => (
+          <SidebarItem key={item.path} item={item} />
+        ))}
+      </SidebarContainer>
     </aside>
   );
 }
