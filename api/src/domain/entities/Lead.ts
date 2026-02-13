@@ -1,12 +1,11 @@
 import { LeadValidationError } from "@domain/exceptions/LeadValidationError";
 
-export enum LeadStatus {
-  NOVO = "novo",
-  CONTACTADO = "contactado",
-  QUALIFICADO = "qualificado",
-  CONVERTIDO = "convertido",
-  PERDIDO = "perdido",
-}
+export type LeadStatus =
+  | "novo"
+  | "contactado"
+  | "qualificado"
+  | "convertido"
+  | "perdido";
 
 export class Lead {
   constructor(
@@ -84,6 +83,13 @@ export class Lead {
   }
 
   private isValidStatus(status: string): boolean {
-    return Object.values(LeadStatus).includes(status as LeadStatus);
+    const validStatuses = [
+      "novo",
+      "contactado",
+      "qualificado",
+      "convertido",
+      "perdido",
+    ];
+    return validStatuses.includes(status);
   }
 }

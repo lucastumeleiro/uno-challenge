@@ -1,7 +1,12 @@
 import { z } from "zod";
-import { LeadStatus } from "@domain/entities/Lead";
 
-const leadStatusEnum = z.nativeEnum(LeadStatus);
+const leadStatusEnum = z.enum([
+  "novo",
+  "contactado",
+  "qualificado",
+  "convertido",
+  "perdido",
+]);
 
 export const createLeadSchema = z.object({
   contactId: z.uuid({ message: "ID do contato deve ser um UUID válido" }),

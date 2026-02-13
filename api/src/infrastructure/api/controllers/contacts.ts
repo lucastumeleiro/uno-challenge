@@ -17,8 +17,6 @@ export function createContactsController(
   contactRepository: IContactRepository,
   leadRepository: ILeadRepository,
 ) {
-  const app = new Hono();
-
   const createContactUseCase = new CreateContact(contactRepository);
   const getContactUseCase = new GetContact(contactRepository);
   const listContactsUseCase = new ListContacts(contactRepository);
@@ -28,40 +26,31 @@ export function createContactsController(
     leadRepository,
   );
 
-  app.get(
-    "/",
-    zValidator("query", listContactsQuerySchema),
-    async (context) => {
+  return new Hono()
+    .get("/", zValidator("query", listContactsQuerySchema), async (context) => {
       const { search } = context.req.valid("query");
       const contacts = await listContactsUseCase.execute(search);
       return context.json(contacts);
-    },
-  );
-
-  app.get("/:id", async (context) => {
-    const id = context.req.param("id");
-    const contact = await getContactUseCase.execute(id);
-    return context.json(contact);
-  });
-
-  app.post("/", zValidator("json", createContactSchema), async (context) => {
-    const data = context.req.valid("json");
-    const contact = await createContactUseCase.execute(data);
-    return context.json(contact, 201);
-  });
-
-  app.put("/:id", zValidator("json", updateContactSchema), async (context) => {
-    const id = context.req.param("id");
-    const data = context.req.valid("json");
-    const contact = await updateContactUseCase.execute(id, data);
-    return context.json(contact);
-  });
-
-  app.delete("/:id", async (context) => {
-    const id = context.req.param("id");
-    await deleteContactUseCase.execute(id);
-    return context.json({ message: "Contato deletado com sucesso" });
-  });
-
-  return app;
+    })
+    .get("/:id", async (context) => {
+      const id = context.req.param("id");
+      const contact = await getContactUseCase.execute(id);
+      return context.json(contact);
+    })
+    .post("/", zValidator("json", createContactSchema), async (context) => {
+      const data = context.req.valid("json");
+      const contact = await createContactUseCase.execute(data);
+      return context.json(contact, 201);
+    })
+    .put("/:id", zValidator("json", updateContactSchema), async (context) => {
+      const id = context.req.param("id");
+      const data = context.req.valid("json");
+      const contact = await updateContactUseCase.execute(id, data);
+      return context.json(contact);
+    })
+    .delete("/:id", async (context) => {
+      const id = context.req.param("id");
+      await deleteContactUseCase.execute(id);
+      return context.json({ message: "Contato deletado com sucesso" });
+    });
 }

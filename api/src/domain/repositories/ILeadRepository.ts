@@ -1,4 +1,4 @@
-import { Lead, LeadStatus } from "@domain/entities/Lead";
+import { Lead, type LeadStatus } from "@domain/entities/Lead";
 
 export interface ILeadRepository {
   findById(id: string): Promise<Lead | null>;

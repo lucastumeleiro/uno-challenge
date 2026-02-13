@@ -1,4 +1,4 @@
-import { Lead, LeadStatus } from "@domain/entities/Lead";
+import { Lead, type LeadStatus } from "@domain/entities/Lead";
 import type { ILeadRepository } from "@domain/repositories/ILeadRepository";
 
 export class InMemoryLeadRepository implements ILeadRepository {

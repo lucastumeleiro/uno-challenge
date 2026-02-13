@@ -1,5 +1,5 @@
 import { Contact } from "@domain/entities/Contact";
-import { Lead, LeadStatus } from "@domain/entities/Lead";
+import { Lead } from "@domain/entities/Lead";
 import { InMemoryContactRepository } from "@infrastructure/repositories/InMemoryContactRepository";
 import { InMemoryLeadRepository } from "@infrastructure/repositories/InMemoryLeadRepository";
 
@@ -55,43 +55,43 @@ export async function seedLeads(
       contactId: contact1.id,
       name: "Lead Empresa ABC",
       company: "ABC Corporation",
-      status: LeadStatus.NOVO,
+      status: "novo",
     }),
     Lead.create({
       contactId: contact1.id,
       name: "Lead Projeto XYZ",
       company: "XYZ Solutions",
-      status: LeadStatus.CONTACTADO,
+      status: "contactado",
     }),
     Lead.create({
       contactId: contact2.id,
       name: "Lead Sistema ERP",
       company: "TechCorp Sistemas",
-      status: LeadStatus.QUALIFICADO,
+      status: "qualificado",
     }),
     Lead.create({
       contactId: contact2.id,
       name: "Lead Website",
       company: "WebDesign Pro",
-      status: LeadStatus.CONVERTIDO,
+      status: "convertido",
     }),
     Lead.create({
       contactId: contact3.id,
       name: "Lead App Mobile",
       company: "MobileTech",
-      status: LeadStatus.NOVO,
+      status: "novo",
     }),
     Lead.create({
       contactId: contact3.id,
       name: "Lead Consultoria",
       company: "ConsultBiz",
-      status: LeadStatus.PERDIDO,
+      status: "perdido",
     }),
     Lead.create({
       contactId: contact4.id,
       name: "Lead E-commerce",
       company: "ShopOnline LTDA",
-      status: LeadStatus.CONTACTADO,
+      status: "contactado",
     }),
   ];
 

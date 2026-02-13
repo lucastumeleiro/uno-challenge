@@ -1,6 +1,6 @@
 import type { ILeadRepository } from "@domain/repositories/ILeadRepository";
 import type { LeadResponseDTO } from "@application/dtos/lead.dto";
-import { LeadStatus } from "@domain/entities/Lead";
+import type { LeadStatus } from "@domain/entities/Lead";
 import { LeadMapper } from "@application/mappers/LeadMapper";
 
 export class ListLeads {
