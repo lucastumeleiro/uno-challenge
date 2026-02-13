@@ -6,7 +6,16 @@ import { router } from "@Router";
 function App() {
   return (
     <>
-      <ToastContainer limit={5} />
+      <ToastContainer
+        limit={5}
+        theme="colored"
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
       <RouterProvider router={router} />
     </>
   );
