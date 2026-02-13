@@ -22,7 +22,8 @@
       "@pages/*": ["src/pages/*"],
       "@Layout/*": ["src/Layout/*"],
       "@Components/*": ["src/Components/*"],
-      "@Lib/*": ["src/Lib/*"]
+      "@Lib/*": ["src/Lib/*"],
+      "@assets/*": ["src/assets/*"]
     }
   },
   "include": ["src"],

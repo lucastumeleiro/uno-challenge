@@ -22,6 +22,7 @@ export default defineConfig({
       "@Layout": path.resolve(__dirname, "./src/Layout"),
       "@Components": path.resolve(__dirname, "./src/Components"),
       "@Lib": path.resolve(__dirname, "./src/Lib"),
+      "@assets": path.resolve(__dirname, "./src/assets"),
     },
   },
   server: {
