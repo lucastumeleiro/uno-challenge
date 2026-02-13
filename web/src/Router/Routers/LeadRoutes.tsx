@@ -1,6 +1,6 @@
+import { Leads } from "@pages/Leads";
+import { LeadForm } from "@pages/Leads/Form";
 import { Outlet } from "react-router-dom";
-import { Leads } from "../../pages/leads";
-import { LeadForm } from "../../pages/leads/Form";
 
 const LeadRoutes = [
   {

@@ -1,6 +1,6 @@
+import { Contacts } from "@pages/Contacts";
+import { ContactForm } from "@pages/Contacts/Form";
 import { Outlet } from "react-router-dom";
-import { ContactForm } from "../../pages/contacts/Form";
-import { Contacts } from "../../pages/contacts";
 
 const ContactRoutes = [
   {
