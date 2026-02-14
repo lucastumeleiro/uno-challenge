@@ -103,7 +103,6 @@ function Contacts() {
           placeholder="Buscar por nome ou email..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          disabled={isPending}
         />
       </div>
 
