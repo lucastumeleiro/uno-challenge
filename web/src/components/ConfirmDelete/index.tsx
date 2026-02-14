@@ -27,11 +27,11 @@ export function ConfirmDelete({
       description={message || defaultMessage}
     >
       <div className="flex  gap-3 justify-end mt-6">
-        <Button variant="outline" onClick={() => onOpenChange(false)}>
-          Cancelar
-        </Button>
         <Button variant="danger" onClick={handleConfirm}>
           Excluir
+        </Button>
+        <Button variant="outline" onClick={() => onOpenChange(false)}>
+          Cancelar
         </Button>
       </div>
     </Modal>
