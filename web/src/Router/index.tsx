@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { LeadRoutes } from "./Routers/LeadRoutes";
 import { ContactRoutes } from "./Routers/ContactRoutes";
@@ -15,6 +15,10 @@ const router = createBrowserRouter([
         element: <Outlet />,
         errorElement: <ErrorBoundary />,
         children: [
+          {
+            index: true,
+            element: <Navigate to="home" replace />,
+          },
           {
             path: "home",
             element: <Home />,

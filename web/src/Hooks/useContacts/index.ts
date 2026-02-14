@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { api } from "@Lib/api";
+import type { ILeadDTO } from "@Hooks/useLeads/Types";
 import type {
   IContactDTO,
   ICreateContactData,
@@ -69,9 +70,21 @@ export function useContacts() {
     }
   }, []);
 
+  const getContactLeads = useCallback(async (contactId: string) => {
+    try {
+      const response = await (api.client.contacts as any)[":contactId"].leads.$get({
+        param: { contactId },
+      });
+      return await api.handleResponse<ILeadDTO[]>(Promise.resolve(response));
+    } catch (err) {
+      return [];
+    }
+  }, []);
+
   return {
     getContacts,
     getContact,
+    getContactLeads,
     createContact,
     updateContact,
     deleteContact,
