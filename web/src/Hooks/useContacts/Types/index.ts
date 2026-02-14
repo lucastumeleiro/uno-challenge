@@ -1,4 +1,4 @@
-export type ContactDTO = {
+export type IContactDTO = {
   id: string;
   name: string;
   email: string;
@@ -6,18 +6,18 @@ export type ContactDTO = {
   createdAt: string;
 };
 
-export type CreateContactData = {
+export type ICreateContactData = {
   name: string;
   email: string;
   phone: string;
 };
 
-export type UpdateContactData = {
+export type IUpdateContactData = {
   name?: string;
   email?: string;
   phone?: string;
 };
 
-export type ListContactsParams = {
+export type IListContactsParams = {
   search?: string;
 };

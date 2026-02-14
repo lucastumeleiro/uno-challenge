@@ -1,34 +1,34 @@
-export type LeadStatus =
+export type ILeadStatus =
   | "novo"
   | "contactado"
   | "qualificado"
   | "convertido"
   | "perdido";
 
-export type LeadDTO = {
+export type ILeadDTO = {
   id: string;
   contactId: string;
   name: string;
   company: string;
-  status: LeadStatus;
+  status: ILeadStatus;
   createdAt: string;
 };
 
-export type CreateLeadData = {
+export type ICreateLeadData = {
   contactId: string;
   name: string;
   company: string;
-  status: LeadStatus;
+  status: ILeadStatus;
 };
 
-export type UpdateLeadData = {
+export type IUpdateLeadData = {
   contactId?: string;
   name?: string;
   company?: string;
-  status?: LeadStatus;
+  status?: ILeadStatus;
 };
 
-export type ListLeadsParams = {
+export type IListLeadsParams = {
   search?: string;
-  status?: LeadStatus;
+  status?: ILeadStatus;
 };
