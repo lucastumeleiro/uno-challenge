@@ -11,12 +11,13 @@ export class ListLeadsByContact {
   ) {}
 
   async execute(contactId: string): Promise<LeadResponseDTO[]> {
-    const contactExists = await this.contactRepository.findById(contactId);
-    if (!contactExists) {
+    const contact = await this.contactRepository.findById(contactId);
+    if (!contact) {
       throw new ContactNotFoundError(contactId);
     }
 
     const leads = await this.leadRepository.findByContactId(contactId);
-    return LeadMapper.toDTOList(leads);
+    const contactNamesMap = new Map([[contactId, contact.name]]);
+    return LeadMapper.toDTOList(leads, contactNamesMap);
   }
 }

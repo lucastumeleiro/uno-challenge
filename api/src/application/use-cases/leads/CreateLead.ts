@@ -15,14 +15,14 @@ export class CreateLead {
   ) {}
 
   async execute(data: CreateLeadDTO): Promise<LeadResponseDTO> {
-    const contactExists = await this.contactRepository.findById(data.contactId);
-    if (!contactExists) {
+    const contact = await this.contactRepository.findById(data.contactId);
+    if (!contact) {
       throw new LeadContactNotFoundError(data.contactId);
     }
 
     const lead = Lead.create(data);
     const savedLead = await this.leadRepository.save(lead);
 
-    return LeadMapper.toDTO(savedLead);
+    return LeadMapper.toDTO(savedLead, contact.name);
   }
 }

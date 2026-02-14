@@ -17,6 +17,7 @@ export interface UpdateLeadDTO {
 export interface LeadResponseDTO {
   id: string;
   contactId: string;
+  contactName: string;
   name: string;
   company: string;
   status: LeadStatus;

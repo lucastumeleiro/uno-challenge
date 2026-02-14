@@ -8,6 +8,7 @@ export type ILeadStatus =
 export type ILeadDTO = {
   id: string;
   contactId: string;
+  contactName: string;
   name: string;
   company: string;
   status: ILeadStatus;

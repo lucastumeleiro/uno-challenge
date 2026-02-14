@@ -20,8 +20,8 @@ export function createLeadsController(
   contactRepository: IContactRepository,
 ) {
   const createLeadUseCase = new CreateLead(leadRepository, contactRepository);
-  const getLeadUseCase = new GetLead(leadRepository);
-  const listLeadsUseCase = new ListLeads(leadRepository);
+  const getLeadUseCase = new GetLead(leadRepository, contactRepository);
+  const listLeadsUseCase = new ListLeads(leadRepository, contactRepository);
   const updateLeadUseCase = new UpdateLead(leadRepository, contactRepository);
   const deleteLeadUseCase = new DeleteLead(leadRepository);
 

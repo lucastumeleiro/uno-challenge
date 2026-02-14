@@ -33,6 +33,7 @@ export class UpdateLead {
     lead.update(data);
     const updatedLead = await this.leadRepository.update(lead);
 
-    return LeadMapper.toDTO(updatedLead);
+    const contact = await this.contactRepository.findById(updatedLead.contactId);
+    return LeadMapper.toDTO(updatedLead, contact?.name ?? "");
   }
 }
