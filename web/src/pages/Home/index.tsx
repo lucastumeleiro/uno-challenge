@@ -1,6 +1,6 @@
 function Home() {
   return (
-    <div style={{ textAlign: "center", padding: "40px", color: "#666" }}>
+    <div className="text-center p-10 text-neutral-medium">
       Bem-vindo ao Mini CRM
     </div>
   );

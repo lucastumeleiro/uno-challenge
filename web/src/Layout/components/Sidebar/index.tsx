@@ -7,9 +7,11 @@ function Sidebar() {
   return (
     <aside
       aria-label="Navegação principal"
-      className="flex h-full w-32 flex-col items-center bg-white py-8 rounded-r-3xl border-r border-gray-200 z-10 shadow-sidebar"
+      className="flex w-full h-16 flex-row items-center bg-white border-t border-gray-200 z-10 md:h-full md:w-32 md:flex-col md:py-8 md:rounded-r-3xl md:border-t-0 md:border-r md:shadow-sidebar"
     >
-      <SidebarLogo />
+      <div className="hidden md:block">
+        <SidebarLogo />
+      </div>
 
       <SidebarContainer>
         {SIDEBAR_ITEMS.map((item) => (

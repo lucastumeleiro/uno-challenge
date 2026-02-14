@@ -9,8 +9,9 @@ function SidebarItem({ item }: ISidebarItemProps) {
       aria-label={item.label}
       className={({ isActive }) =>
         twHelper(
-          "group relative flex flex-col items-center gap-2",
-          "px-4 py-3 mx-3 rounded-2xl",
+          "group relative flex flex-col items-center",
+          "px-3 py-2 mx-1 rounded-xl",
+          "md:gap-2 md:px-4 md:py-3 md:mx-3 md:rounded-2xl",
           "transition-all duration-300 ease-in-out",
 
           isActive && "bg-primary-light",
@@ -21,9 +22,10 @@ function SidebarItem({ item }: ISidebarItemProps) {
       {({ isActive }) => (
         <>
           <item.icon
-            size={24}
+            size={20}
             weight="regular"
             className={twHelper(
+              "md:size-6!",
               "transition-all duration-300 ease-out",
               "group-hover:scale-110 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5",
               isActive ? "text-primary-dark" : "text-neutral-medium",
@@ -31,6 +33,7 @@ function SidebarItem({ item }: ISidebarItemProps) {
           />
           <span
             className={twHelper(
+              "hidden md:block",
               "text-xs transition-colors duration-300 ease-in-out",
               isActive && "text-primary-dark font-bold",
               !isActive && "text-neutral-medium",
