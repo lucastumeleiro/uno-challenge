@@ -31,4 +31,5 @@ export interface ITableHeadProps extends ComponentProps<"th"> {
 
 export interface ITableCellProps extends ComponentProps<"td"> {
   children: ReactNode;
+  label?: string;
 }

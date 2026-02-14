@@ -9,7 +9,7 @@ export function InternalTableRoot({
   return (
     <div className="w-full overflow-auto">
       <table
-        className={twMerge("w-full border-collapse", className)}
+        className={twMerge("w-full block md:table md:border-collapse", className)}
         {...props}
       >
         {children}

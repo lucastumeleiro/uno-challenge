@@ -9,6 +9,8 @@ export function InternalTableRow({
   return (
     <tr
       className={twMerge(
+        "block md:table-row",
+        "mb-3 md:mb-0 border border-neutral-light md:border-0 rounded-lg md:rounded-none p-2 md:p-0",
         "hover:bg-neutral-light/10 transition-colors",
         className,
       )}

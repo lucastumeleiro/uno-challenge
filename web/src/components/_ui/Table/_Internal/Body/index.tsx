@@ -8,7 +8,7 @@ export function InternalTableBody({
 }: ITableBodyProps) {
   return (
     <tbody
-      className={twMerge("divide-y divide-neutral-light", className)}
+      className={twMerge("block md:table-row-group md:divide-y md:divide-neutral-light", className)}
       {...props}
     >
       {children}

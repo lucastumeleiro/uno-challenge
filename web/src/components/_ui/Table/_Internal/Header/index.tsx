@@ -8,7 +8,7 @@ export function InternalTableHeader({
 }: ITableHeaderProps) {
   return (
     <thead
-      className={twMerge("border-b border-neutral-light", className)}
+      className={twMerge("hidden md:table-header-group border-b border-neutral-light", className)}
       {...props}
     >
       {children}
