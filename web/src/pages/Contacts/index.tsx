@@ -106,13 +106,7 @@ function Contacts() {
         />
       </div>
 
-      {isPending && (
-        <div className="flex justify-center py-5">
-          <Spinner size="lg" />
-        </div>
-      )}
-
-      {!isPending && sortedContacts.length === 0 && (
+      {sortedContacts.length === 0 && !isPending && (
         <div className="text-center p-10 text-neutral-medium">
           {searchTerm
             ? "Nenhum contato encontrado com os filtros aplicados."
@@ -120,7 +114,13 @@ function Contacts() {
         </div>
       )}
 
-      {!isPending && sortedContacts.length > 0 && (
+      {(sortedContacts.length > 0 || isPending) && (
+        <div className={`relative ${isPending ? "opacity-50 pointer-events-none" : ""}`}>
+        {isPending && (
+          <div className="absolute inset-0 flex items-center justify-center z-10">
+            <Spinner size="lg" />
+          </div>
+        )}
         <Table.Root>
           <Table.Header>
             <Table.Row>
@@ -150,12 +150,12 @@ function Contacts() {
           <Table.Body>
             {sortedContacts.map((contact) => (
               <Table.Row key={contact.id}>
-                <Table.Cell>{contact.name}</Table.Cell>
-                <Table.Cell>{contact.email}</Table.Cell>
-                <Table.Cell>{contact.phone}</Table.Cell>
-                <Table.Cell>{formatDate(contact.createdAt)}</Table.Cell>
+                <Table.Cell label="Nome">{contact.name}</Table.Cell>
+                <Table.Cell label="Email">{contact.email}</Table.Cell>
+                <Table.Cell label="Telefone">{contact.phone}</Table.Cell>
+                <Table.Cell label="Data">{formatDate(contact.createdAt)}</Table.Cell>
                 <Table.Cell>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 justify-end">
                     <TableButton
                       variant="edit"
                       onClick={() => navigate(`/contacts/form/${contact.id}`)}
@@ -172,6 +172,7 @@ function Contacts() {
             ))}
           </Table.Body>
         </Table.Root>
+        </div>
       )}
 
       {ConfirmDeleteModal}
