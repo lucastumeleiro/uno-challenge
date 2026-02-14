@@ -8,7 +8,7 @@ function InternalPageHeader({
 }: IPageHeaderProps) {
   return (
     <div
-      className={twMerge("flex items-center justify-between mb-6", className)}
+      className={twMerge("flex flex-col items-center gap-4 mb-6 md:flex-row md:justify-between", className)}
       {...props}
     >
       {children}

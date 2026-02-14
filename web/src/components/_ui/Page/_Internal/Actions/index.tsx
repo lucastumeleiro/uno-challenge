@@ -7,7 +7,7 @@ function InternalPageActions({
   ...props
 }: IPageActionsProps) {
   return (
-    <div className={twMerge("flex items-center gap-3", className)} {...props}>
+    <div className={twMerge("flex items-center gap-3 flex-wrap justify-center", className)} {...props}>
       {children}
     </div>
   );
