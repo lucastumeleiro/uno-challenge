@@ -75,24 +75,66 @@ yarn test
 
 ### Contacts
 
-- `GET /contacts` - Lista todos os contatos
+- `GET /contacts` - Lista contatos (paginação + busca por `search`)
 - `GET /contacts/:id` - Busca contato por ID
 - `POST /contacts` - Cria novo contato
 - `PUT /contacts/:id` - Atualiza contato
-- `DELETE /contacts/:id` - Remove contato
+- `DELETE /contacts/:id` - Remove contato (bloqueado se possuir leads)
+- `GET /contacts/:contactId/leads` - Lista leads vinculados a um contato
 
 ### Leads
 
-- `GET /leads` - Lista todos os leads
+- `GET /leads` - Lista leads (paginação + busca por `search` + filtro por `status`)
 - `GET /leads/:id` - Busca lead por ID
 - `POST /leads` - Cria novo lead
 - `PUT /leads/:id` - Atualiza lead
 - `DELETE /leads/:id` - Remove lead
 
+### Dashboard
+
+- `GET /dashboard` - Métricas e indicadores (leads por status, taxa de conversão, top contatos)
+
+### Health Check
+
+- `GET /health` - Status da API
+
+## 🧪 Testes
+
+O backend possui testes unitários e de integração organizados por camada da arquitetura, usando **Vitest**:
+
+### Domain Layer (Unitários)
+
+Testam as entidades de negócio isoladamente — validações, factory methods e regras de atualização:
+
+- `Contact.test.ts` — Criação, validação de campos (nome, email, phone), update parcial, acúmulo de erros
+- `Lead.test.ts` — Criação, validação de todos os status, update de campos, status inválido
+
+### Application Layer (Unitários)
+
+Testam os use cases com repositórios InMemory reais (sem mocks), validando fluxos de negócio:
+
+- **Contacts**: CreateContact, GetContact, UpdateContact, DeleteContact
+- **Leads**: CreateLead, UpdateLead, DeleteLead, ListLeadsByContact
+
+Casos cobertos: email duplicado, contato/lead não encontrado, contato com leads vinculados (bloqueio de delete), troca de contato em lead, etc.
+
+### Infrastructure Layer (Integração)
+
+Testam os controllers via HTTP usando `app.request()` do Hono, cobrindo o fluxo completo (validação Zod → use case → resposta HTTP):
+
+- `contacts.test.ts` — CRUD completo, status codes (201, 200, 400, 404, 409)
+- `leads.test.ts` — CRUD completo, filtro por status, leads por contato
+
+```bash
+# Executar testes
+yarn test
+```
+
 ## 🛠️ Stack Tecnológica
 
 - **Framework**: [Hono](https://hono.dev/) - Web framework ultrarrápido
 - **Validação**: [Zod](https://zod.dev/) - Schema validation
+- **Testes**: [Vitest](https://vitest.dev/) - Test runner
 - **TypeScript**: Tipagem estática
 - **Persistência**: In-Memory (Arrays)
 
@@ -118,6 +160,7 @@ api/
 │   │   ├── repositories/
 │   │   └── seeds/
 │   └── index.ts
+├── vitest.config.ts
 └── package.json
 ```
 

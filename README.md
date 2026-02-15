@@ -92,8 +92,14 @@ yarn build:web
 ### Testes
 
 ```bash
+# Executar todos os testes (backend + frontend)
+yarn test
+
 # Executar testes do backend
 yarn test:api
+
+# Executar testes do frontend
+yarn test:web
 ```
 
 ---

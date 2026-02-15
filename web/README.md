@@ -122,6 +122,28 @@ yarn build
 
 # Preview do build
 yarn preview
+
+# Executar testes
+yarn test
+```
+
+## 🧪 Testes
+
+O frontend possui testes unitários dos componentes de UI usando **Vitest** + **Testing Library**, demonstrando a vantagem do **Composition Pattern** adotado nos inputs:
+
+### \_Internal (Base Composicional)
+
+Os sub-componentes `Root`, `Label`, `Control` e `ErrorMessage` são a base de **todos** os inputs do sistema. Testar aqui uma vez cobre o comportamento compartilhado — renderização, estados (disabled, error, required), ref forwarding, composição.
+
+### InputText (Componente Composto)
+
+Testa apenas o que é **específico** do InputText: a montagem correta dos sub-componentes, `type="text"` forçado, repasse de `label`, `error` e `required`. **Não repete** o que já foi coberto no `_Internal`.
+
+> Essa estratégia se aplica a qualquer outro input (InputEmail, InputPhone, InputSearch) — todos herdam a cobertura do `_Internal` automaticamente.
+
+```bash
+# Executar testes
+yarn test
 ```
 
 ## 🛠️ Stack Tecnológica
@@ -131,11 +153,47 @@ yarn preview
 - **Estilização**: [TailwindCSS 4](https://tailwindcss.com/) - Utility-first CSS
 - **Build Tool**: [Vite](https://vitejs.dev/) - Build tool ultrarrápido
 - **Validação**: Zod - Schema validation no cliente
+- **Testes**: [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) - Testes de componentes
 
 ## 📁 Estrutura de Diretórios
 
 ```
 web/
+├── src/
+│   ├── components/
+│   │   ├── _ui/              # Componentes de UI reutilizáveis
+│   │   │   ├── inputs/       # Inputs (Composition Pattern)
+│   │   │   │   ├── _Internal/  # Sub-componentes base (Root, Label, Control, ErrorMessage)
+│   │   │   │   ├── InputText/
+│   │   │   │   ├── InputEmail/
+│   │   │   │   ├── InputPhone/
+│   │   │   │   └── InputSearch/
+│   │   │   ├── selects/
+│   │   │   ├── Button/
+│   │   │   ├── Badge/
+│   │   │   ├── Form/
+│   │   │   ├── Field/
+│   │   │   ├── Modal/
+│   │   │   ├── Table/
+│   │   │   ├── Page/
+│   │   │   ├── Pagination/
+│   │   │   └── Spinner/
+│   │   ├── GridSystem/
+│   │   └── ConfirmDelete/
+│   ├── pages/
+│   │   ├── Home/
+│   │   ├── Dashboard/
+│   │   ├── Contacts/
+│   │   └── Leads/
+│   ├── Hooks/
+│   ├── Layout/
+│   ├── Router/
+│   ├── Lib/
+│   ├── common/
+│   ├── Types/
+│   └── test/                 # Setup de testes
+├── vitest.config.ts
+└── package.json
 ```
 
 ## 🎨 Design System
@@ -146,11 +204,3 @@ O projeto segue um design system consistente definido no Figma, incluindo:
 - **Tipografia**: Hierarquia de textos e tamanhos
 - **Espaçamentos**: Sistema de grid e espaçamentos consistentes
 - **Componentes**: Botões, inputs, cards e outros elementos padronizados
-
-## 🔗 Integração com Backend
-
-O frontend consome a API REST do backend através de serviços HTTP organizados:
-
-- **Base URL**: `http://localhost:3000`
-- **Endpoints**: `/contacts` e `/leads`
-- **Formato**: JSON
