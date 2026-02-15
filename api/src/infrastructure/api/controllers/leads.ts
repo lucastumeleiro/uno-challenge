@@ -27,10 +27,12 @@ export function createLeadsController(
 
   return new Hono()
     .get("/", zValidator("query", listLeadsQuerySchema), async (context) => {
-      const { search, status } = context.req.valid("query");
+      const { search, status, page, limit } = context.req.valid("query");
       const leads = await listLeadsUseCase.execute(
         search,
         status as LeadStatus | undefined,
+        page,
+        limit,
       );
       return context.json(leads);
     })

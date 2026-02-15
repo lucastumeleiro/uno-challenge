@@ -22,6 +22,14 @@ export class InMemoryContactRepository implements IContactRepository {
     );
   }
 
+  async findPaginated(search?: string, page = 1, limit = 10): Promise<{ data: Contact[]; total: number }> {
+    const all = await this.findAll(search);
+    const total = all.length;
+    const start = (page - 1) * limit;
+    const data = all.slice(start, start + limit);
+    return { data, total };
+  }
+
   async save(contact: Contact): Promise<Contact> {
     this.contacts.push(contact);
     return contact;

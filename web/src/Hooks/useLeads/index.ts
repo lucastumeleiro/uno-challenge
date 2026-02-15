@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { api } from "@Lib/api";
+import type { IPaginatedResponse } from "@/Types/pagination";
 import type {
   ICreateLeadData,
   ILeadDTO,
@@ -11,16 +12,18 @@ import type {
 export function useLeads() {
   const getLeads = useCallback(async (params?: IListLeadsParams) => {
     try {
-      const queryParams: { search?: string; status?: ILeadStatus } = {};
+      const queryParams: { search?: string; status?: ILeadStatus; page?: number; limit?: number } = {};
       if (params?.search) queryParams.search = params.search;
       if (params?.status) queryParams.status = params.status;
+      if (params?.page) queryParams.page = params.page;
+      if (params?.limit) queryParams.limit = params.limit;
 
       const response = await api.client.leads.$get({
-        query: queryParams,
+        query: queryParams as Record<string, string>,
       });
-      return await api.handleResponse<ILeadDTO[]>(Promise.resolve(response));
+      return await api.handleResponse<IPaginatedResponse<ILeadDTO>>(Promise.resolve(response));
     } catch (err) {
-      return [];
+      return { data: [], total: 0, page: 1, limit: 10 };
     }
   }, []);
 

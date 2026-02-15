@@ -32,4 +32,6 @@ export type IUpdateLeadData = {
 export type IListLeadsParams = {
   search?: string;
   status?: ILeadStatus;
+  page?: number;
+  limit?: number;
 };

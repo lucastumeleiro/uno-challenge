@@ -28,6 +28,14 @@ export class InMemoryLeadRepository implements ILeadRepository {
     return filteredLeads;
   }
 
+  async findPaginated(search?: string, status?: LeadStatus, page = 1, limit = 10): Promise<{ data: Lead[]; total: number }> {
+    const all = await this.findAll(search, status);
+    const total = all.length;
+    const start = (page - 1) * limit;
+    const data = all.slice(start, start + limit);
+    return { data, total };
+  }
+
   async findByContactId(contactId: string): Promise<Lead[]> {
     return this.leads.filter((lead) => lead.contactId === contactId);
   }

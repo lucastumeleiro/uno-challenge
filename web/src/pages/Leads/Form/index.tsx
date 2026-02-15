@@ -31,8 +31,8 @@ function LeadForm() {
   const form = useForm<LeadFormData>({
     resolver: zodResolver(leadSchema),
     defaultValues: async () => {
-      const contactsData = await getContacts();
-      setContacts(contactsData);
+      const contactsResult = await getContacts({ limit: 100 });
+      setContacts(contactsResult.data);
 
       if (id) {
         const lead = await getLead(id);

@@ -13,6 +13,7 @@ import { Button } from "@/components/_ui/Button";
 import { TableButton } from "@/components/_ui/TableButton";
 import { Table } from "@/components/_ui/Table";
 import { Badge } from "@/components/_ui/Badge";
+import { Pagination } from "@/components/_ui/Pagination";
 import type { ISortDirection } from "@/components/_ui/Table/Types";
 import type { ISortColumn } from "./Types";
 
@@ -24,11 +25,15 @@ const STATUS_LABELS: Record<ILeadStatus, string> = {
   perdido: "Perdido",
 };
 
+const ITEMS_PER_PAGE = 10;
+
 function Leads() {
   const navigate = useNavigate();
   const [isPending, startTransition] = useTransition();
 
   const [leads, setLeads] = useState<ILeadDTO[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<ILeadStatusWithAll>("todos");
   const [sortColumn, setSortColumn] = useState<ISortColumn>(null);
@@ -42,15 +47,19 @@ function Leads() {
       startTransition(async () => {
         const success = await deleteLead(id);
         if (success) {
-          setLeads((prev) => prev.filter((lead) => lead.id !== id));
+          loadLeads();
         }
       });
     },
   });
 
   useEffect(() => {
-    loadLeads();
+    setPage(1);
   }, [debouncedSearchTerm, statusFilter]);
+
+  useEffect(() => {
+    loadLeads();
+  }, [debouncedSearchTerm, statusFilter, page]);
 
   const sortedLeads = useMemo(() => {
     let result = [...leads];
@@ -71,11 +80,14 @@ function Leads() {
 
   async function loadLeads() {
     startTransition(async () => {
-      const data = await getLeads({
+      const result = await getLeads({
         search: debouncedSearchTerm || undefined,
         status: statusFilter !== "todos" ? statusFilter : undefined,
+        page,
+        limit: ITEMS_PER_PAGE,
       });
-      setLeads(data);
+      setLeads(result.data);
+      setTotal(result.total);
     });
   }
 
@@ -207,6 +219,14 @@ function Leads() {
           </Table.Root>
         </div>
       )}
+
+      <Pagination
+        page={page}
+        total={total}
+        limit={ITEMS_PER_PAGE}
+        onPageChange={setPage}
+        disabled={isPending}
+      />
 
       {ConfirmDeleteModal}
     </Page>

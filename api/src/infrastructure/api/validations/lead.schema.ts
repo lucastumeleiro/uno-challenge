@@ -35,4 +35,6 @@ export const updateLeadSchema = z.object({
 export const listLeadsQuerySchema = z.object({
   search: z.string().optional(),
   status: leadStatusEnum.optional(),
+  page: z.coerce.number().int().min(1).optional(),
+  limit: z.coerce.number().int().min(1).max(100).optional(),
 });

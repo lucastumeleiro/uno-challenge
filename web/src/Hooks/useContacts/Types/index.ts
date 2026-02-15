@@ -20,4 +20,6 @@ export type IUpdateContactData = {
 
 export type IListContactsParams = {
   search?: string;
+  page?: number;
+  limit?: number;
 };

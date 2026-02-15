@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { api } from "@Lib/api";
+import type { IPaginatedResponse } from "@/Types/pagination";
 import type { ILeadDTO } from "@Hooks/useLeads/Types";
 import type {
   IContactDTO,
@@ -11,13 +12,17 @@ import type {
 export function useContacts() {
   const getContacts = useCallback(async (params?: IListContactsParams) => {
     try {
-      const queryParams = params?.search ? { search: params.search } : {};
+      const queryParams: { search?: string; page?: number; limit?: number } = {};
+      if (params?.search) queryParams.search = params.search;
+      if (params?.page) queryParams.page = params.page;
+      if (params?.limit) queryParams.limit = params.limit;
+
       const response = await api.client.contacts.$get({
-        query: queryParams as { search?: string },
+        query: queryParams as Record<string, string>,
       });
-      return await api.handleResponse<IContactDTO[]>(Promise.resolve(response));
+      return await api.handleResponse<IPaginatedResponse<IContactDTO>>(Promise.resolve(response));
     } catch (err) {
-      return [];
+      return { data: [], total: 0, page: 1, limit: 10 };
     }
   }, []);
 

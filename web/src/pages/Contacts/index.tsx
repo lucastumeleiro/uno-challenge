@@ -10,14 +10,19 @@ import { InputSearch } from "@/components/_ui/inputs/InputSearch";
 import { Button } from "@/components/_ui/Button";
 import { TableButton } from "@/components/_ui/TableButton";
 import { Table } from "@/components/_ui/Table";
+import { Pagination } from "@/components/_ui/Pagination";
 import type { ISortDirection } from "@/components/_ui/Table/Types";
 import type { ISortColumn } from "./Types";
+
+const ITEMS_PER_PAGE = 10;
 
 function Contacts() {
   const navigate = useNavigate();
   const [isPending, startTransition] = useTransition();
 
   const [contacts, setContacts] = useState<IContactDTO[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortColumn, setSortColumn] = useState<ISortColumn>(null);
   const [sortDirection, setSortDirection] = useState<ISortDirection>(undefined);
@@ -30,15 +35,19 @@ function Contacts() {
       startTransition(async () => {
         const success = await deleteContact(id);
         if (success) {
-          setContacts((prev) => prev.filter((contact) => contact.id !== id));
+          loadContacts();
         }
       });
     },
   });
 
   useEffect(() => {
-    loadContacts();
+    setPage(1);
   }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    loadContacts();
+  }, [debouncedSearchTerm, page]);
 
   const sortedContacts = useMemo(() => {
     let result = [...contacts];
@@ -59,10 +68,13 @@ function Contacts() {
 
   async function loadContacts() {
     startTransition(async () => {
-      const data = await getContacts({
+      const result = await getContacts({
         search: debouncedSearchTerm || undefined,
+        page,
+        limit: ITEMS_PER_PAGE,
       });
-      setContacts(data);
+      setContacts(result.data);
+      setTotal(result.total);
     });
   }
 
@@ -174,6 +186,14 @@ function Contacts() {
         </Table.Root>
         </div>
       )}
+
+      <Pagination
+        page={page}
+        total={total}
+        limit={ITEMS_PER_PAGE}
+        onPageChange={setPage}
+        disabled={isPending}
+      />
 
       {ConfirmDeleteModal}
     </Page>

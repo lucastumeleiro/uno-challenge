@@ -28,8 +28,8 @@ export function createContactsController(
 
   return new Hono()
     .get("/", zValidator("query", listContactsQuerySchema), async (context) => {
-      const { search } = context.req.valid("query");
-      const contacts = await listContactsUseCase.execute(search);
+      const { search, page, limit } = context.req.valid("query");
+      const contacts = await listContactsUseCase.execute(search, page, limit);
       return context.json(contacts);
     })
     .get("/:id", async (context) => {
