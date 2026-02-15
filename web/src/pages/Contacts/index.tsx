@@ -13,8 +13,7 @@ import { Table } from "@/components/_ui/Table";
 import { Pagination } from "@/components/_ui/Pagination";
 import type { ISortDirection } from "@/components/_ui/Table/Types";
 import type { ISortColumn } from "./Types";
-
-const ITEMS_PER_PAGE = 10;
+import { ITEMS_PER_PAGE } from "@common/Constants";
 
 function Contacts() {
   const navigate = useNavigate();
@@ -127,63 +126,67 @@ function Contacts() {
       )}
 
       {(sortedContacts.length > 0 || isPending) && (
-        <div className={`relative ${isPending ? "opacity-50 pointer-events-none" : ""}`}>
-        {isPending && (
-          <div className="absolute inset-0 flex items-center justify-center z-10">
-            <Spinner size="lg" />
-          </div>
-        )}
-        <Table.Root>
-          <Table.Header>
-            <Table.Row>
-              <Table.Head
-                sortable
-                sortDirection={
-                  sortColumn === "name" ? sortDirection : undefined
-                }
-                onSort={() => handleSort("name")}
-              >
-                Nome
-              </Table.Head>
-              <Table.Head>Email</Table.Head>
-              <Table.Head>Telefone</Table.Head>
-              <Table.Head
-                sortable
-                sortDirection={
-                  sortColumn === "createdAt" ? sortDirection : undefined
-                }
-                onSort={() => handleSort("createdAt")}
-              >
-                Data
-              </Table.Head>
-              <Table.Head>Ações</Table.Head>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {sortedContacts.map((contact) => (
-              <Table.Row key={contact.id}>
-                <Table.Cell label="Nome">{contact.name}</Table.Cell>
-                <Table.Cell label="Email">{contact.email}</Table.Cell>
-                <Table.Cell label="Telefone">{contact.phone}</Table.Cell>
-                <Table.Cell label="Data">{formatDate(contact.createdAt)}</Table.Cell>
-                <Table.Cell>
-                  <div className="flex gap-2 justify-end">
-                    <TableButton
-                      variant="edit"
-                      onClick={() => navigate(`/contacts/form/${contact.id}`)}
-                      disabled={isPending}
-                    />
-                    <TableButton
-                      variant="delete"
-                      onClick={() => confirmDelete(contact.id, contact.name)}
-                      disabled={isPending}
-                    />
-                  </div>
-                </Table.Cell>
+        <div
+          className={`relative ${isPending ? "opacity-50 pointer-events-none" : ""}`}
+        >
+          {isPending && (
+            <div className="absolute inset-0 flex items-center justify-center z-10">
+              <Spinner size="lg" />
+            </div>
+          )}
+          <Table.Root>
+            <Table.Header>
+              <Table.Row>
+                <Table.Head
+                  sortable
+                  sortDirection={
+                    sortColumn === "name" ? sortDirection : undefined
+                  }
+                  onSort={() => handleSort("name")}
+                >
+                  Nome
+                </Table.Head>
+                <Table.Head>Email</Table.Head>
+                <Table.Head>Telefone</Table.Head>
+                <Table.Head
+                  sortable
+                  sortDirection={
+                    sortColumn === "createdAt" ? sortDirection : undefined
+                  }
+                  onSort={() => handleSort("createdAt")}
+                >
+                  Data
+                </Table.Head>
+                <Table.Head>Ações</Table.Head>
               </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Root>
+            </Table.Header>
+            <Table.Body>
+              {sortedContacts.map((contact) => (
+                <Table.Row key={contact.id}>
+                  <Table.Cell label="Nome">{contact.name}</Table.Cell>
+                  <Table.Cell label="Email">{contact.email}</Table.Cell>
+                  <Table.Cell label="Telefone">{contact.phone}</Table.Cell>
+                  <Table.Cell label="Data">
+                    {formatDate(contact.createdAt)}
+                  </Table.Cell>
+                  <Table.Cell>
+                    <div className="flex gap-2 justify-end">
+                      <TableButton
+                        variant="edit"
+                        onClick={() => navigate(`/contacts/form/${contact.id}`)}
+                        disabled={isPending}
+                      />
+                      <TableButton
+                        variant="delete"
+                        onClick={() => confirmDelete(contact.id, contact.name)}
+                        disabled={isPending}
+                      />
+                    </div>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
         </div>
       )}
 

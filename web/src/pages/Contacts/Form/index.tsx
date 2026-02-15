@@ -18,15 +18,21 @@ import { Badge } from "@/components/_ui/Badge";
 import { TableButton } from "@/components/_ui/TableButton";
 import type { ContactFormData } from "./Types";
 import { contactSchema } from "./Utils/validation";
-import { FORM_ID, INITIAL_VALUES, STATUS_LABELS } from "./Utils/constants";
+import { FORM_ID, INITIAL_VALUES } from "./Utils/constants";
+import { STATUS_LABELS } from "@common/Constants";
 
 function ContactForm() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [isPending, startTransition] = useTransition();
 
-  const { getContact, getContactLeads, createContact, updateContact, deleteContact } =
-    useContacts();
+  const {
+    getContact,
+    getContactLeads,
+    createContact,
+    updateContact,
+    deleteContact,
+  } = useContacts();
   const { deleteLead } = useLeads();
 
   const [leads, setLeads] = useState<ILeadDTO[]>([]);

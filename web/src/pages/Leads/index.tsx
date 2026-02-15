@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useLeads } from "@Hooks/useLeads";
 import { useDebounce } from "@Hooks/useDebounce";
 import { useConfirmDelete } from "@Hooks/useConfirmDelete";
-import type { ILeadDTO, ILeadStatus } from "@Hooks/useLeads/Types";
+import type { ILeadDTO } from "@Hooks/useLeads/Types";
 import type { ILeadStatusWithAll } from "@/components/_ui/selects/SelectStatus/Types";
 import { Page } from "@/components/_ui/Page";
 import { Spinner } from "@/components/_ui/Spinner";
@@ -16,16 +16,7 @@ import { Badge } from "@/components/_ui/Badge";
 import { Pagination } from "@/components/_ui/Pagination";
 import type { ISortDirection } from "@/components/_ui/Table/Types";
 import type { ISortColumn } from "./Types";
-
-const STATUS_LABELS: Record<ILeadStatus, string> = {
-  novo: "Novo",
-  contactado: "Contactado",
-  qualificado: "Qualificado",
-  convertido: "Convertido",
-  perdido: "Perdido",
-};
-
-const ITEMS_PER_PAGE = 10;
+import { ITEMS_PER_PAGE, STATUS_LABELS } from "@common/Constants";
 
 function Leads() {
   const navigate = useNavigate();
