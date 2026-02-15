@@ -10,6 +10,8 @@
     "dev:api": "yarn workspace @uno/api dev",
     "dev:web": "yarn workspace @uno/web dev",
     "test:api": "yarn workspace @uno/api test",
+    "test:web": "yarn workspace @uno/web test",
+    "test": "yarn test:api && yarn test:web",
     "build:api": "yarn workspace @uno/api build",
     "build:web": "yarn workspace @uno/web build"
   },
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.2.3",
+    "jsdom": "^28.0.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
   }
