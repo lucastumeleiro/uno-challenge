@@ -6,6 +6,7 @@ import {
   createLeadsController,
   createContactLeadsController,
 } from "@infrastructure/api/controllers/leads";
+import { createDashboardController } from "@infrastructure/api/controllers/dashboard";
 import { errorHandler } from "@infrastructure/api/middlewares/errorHandler";
 import type { IContactRepository } from "@domain/repositories/IContactRepository";
 import type { ILeadRepository } from "@domain/repositories/ILeadRepository";
@@ -32,7 +33,11 @@ export function createServer(
       "/contacts",
       createContactLeadsController(leadRepository, contactRepository),
     )
-    .route("/leads", createLeadsController(leadRepository, contactRepository));
+    .route("/leads", createLeadsController(leadRepository, contactRepository))
+    .route(
+      "/dashboard",
+      createDashboardController(leadRepository, contactRepository),
+    );
 
   return app;
 }

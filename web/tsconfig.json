@@ -25,6 +25,7 @@
       "@Lib/*": ["src/Lib/*"],
       "@Hooks/*": ["src/Hooks/*"],
       "@assets/*": ["src/assets/*"],
+      "@common/*": ["src/common/*"],
       "@uno/api/*": ["../api/src/*"]
     }
   },
